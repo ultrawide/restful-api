@@ -29,6 +29,11 @@ app.use((req, res, next) => {
   next();
 });
 
+// Note this api breaks restful property; endpoint for specific feature
+app.get('/session', (req, res) => {
+  return res.send(usersRouter.users[req.me.id]);
+});
+
 app.use('/messages', messageRouter);
 
 // catch 404 and forward to error handler
