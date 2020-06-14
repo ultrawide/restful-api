@@ -11,7 +11,7 @@ let users = {
     id: '2',
     username: 'Dave Davids',
   },
-};  
+};
 
 router.get('/:userId', (req, res) => {
   return res.send(users[req.params.userId]);
@@ -38,3 +38,4 @@ router.delete('/:userId', (req, res) => {
 });
 
 module.exports = router;
+module.exports.users = users;
