@@ -1,24 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-// Hard coded data for demonstration
-let users = {
-  1: {
-    id: '1',
-    username: 'Robin Wieruch',
-  },
-  2: {
-    id: '2',
-    username: 'Dave Davids',
-  },
-};
+var models = require('../models/index');
 
 router.get('/:userId', (req, res) => {
-  return res.send(users[req.params.userId]);
+  return res.send(req.context.models.users[req.params.userId]);
 });
 
 router.get('/', (req, res) => {
-  return res.send(Object.values(users));
+  return res.send(Object.values(req.context.models.users));
 });
  
 router.post('/', (req, res) => {
@@ -38,4 +28,3 @@ router.delete('/:userId', (req, res) => {
 });
 
 module.exports = router;
-module.exports.users = users;

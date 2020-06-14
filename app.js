@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config()
 
+var models = require('./models/index');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var messageRouter = require('./routes/messages');
@@ -25,13 +27,16 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.use((req, res, next) => {
-  req.me = usersRouter.users[1];
+  req.context = {
+    models,
+    me: models.users[1],
+  };
   next();
 });
 
 // Note this api breaks restful property; endpoint for specific feature
 app.get('/session', (req, res) => {
-  return res.send(usersRouter.users[req.me.id]);
+  return res.send(req.cotext.models.users[req.me.id]);
 });
 
 app.use('/messages', messageRouter);
