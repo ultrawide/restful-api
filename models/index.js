@@ -23,5 +23,4 @@ let messages = {
     },
 };
 
-module.exports = users;
-module.exports = messages;
+module.exports = {users, messages};
